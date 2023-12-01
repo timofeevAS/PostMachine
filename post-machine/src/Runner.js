@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import CodeWriter from "./CodeWriter";
 import { Button } from "react-bootstrap";
+import { indexOf } from "lodash";
 
 const Runner = ({codeHandle,commandIndex}) => {
   const [textCode,setTextCode] = useState("")
 
   useEffect(()=>{
-    console.log(getInitTape(textCode),`initTape`)
-    console.log(getCommands(textCode),`commands`)  
+    //console.log(getInitTape(textCode),`initTape`)
+    //console.log(getCommands(textCode),`commands`)  
   },[textCode])
 
   const buildCode = () => {
@@ -16,9 +17,7 @@ const Runner = ({codeHandle,commandIndex}) => {
       initTape:getInitTape(textCode),
       commands:getCommands(textCode),      
     }
-    
-   
-
+    alert(`Build succesful with: ${toExecute.commands.length} commands number`)
     codeHandle(toExecute)
     
 
@@ -69,9 +68,22 @@ const Runner = ({codeHandle,commandIndex}) => {
       console.log(`${command}  ${regex.test(command)}`)
       if(regex.test(command)){
         readyCommands.push(command)
+      }else{
+        alert(`command: ${command} isnt correct`)
       }
     });
     return readyCommands
+  }
+
+  const infoPost = () => {
+    alert(`Rules:\n
+    1. V j -> place V in current place and go to command j \n
+    2. X j -> place X in current place and go to command j \n
+    3. > j -> move cursor in one step right and go to command j \n
+    4. < j -> move cursor in one step left and go to command j \n
+    5. ? j1; j2 -> ternanry operator if -> goto j1 command else goto j2 command \n
+    6. ! -> end programm
+    `)
   }
 
 
@@ -79,6 +91,7 @@ const Runner = ({codeHandle,commandIndex}) => {
     <>
       <CodeWriter textCode={textCode} textCodeHandle={(text)=>{setTextCode(text)}} commandIndex={commandIndex} />
       <Button variant="outline-success" style={{margin:"5px"}} onClick={()=>{buildCode()}}>build</Button>{' '}
+      <Button variant="outline-info" style={{margin:"5px"}} onClick={()=>{infoPost()}}>?</Button>{' '}
     </>
   );
 };

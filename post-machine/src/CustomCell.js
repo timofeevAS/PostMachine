@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomCell = ({ value, onClickHandle }) => {
+const CustomCell = ({ value, onClickHandle, onContextHandle }) => {
   return (
     <div   
       style={{
@@ -16,6 +16,10 @@ const CustomCell = ({ value, onClickHandle }) => {
         margin: "5px",
         cursor: "pointer",  
         userSelect:"none"
+      }}
+      onContextMenu={(event)=>{
+        event.preventDefault();
+        onContextHandle(value.index)
       }}
       onClick={() => {
         onClickHandle(value.index)

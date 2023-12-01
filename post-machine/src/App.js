@@ -26,6 +26,9 @@ const App = () => {
     console.log('command index effect: ',commandIndex)
   },[commandIndex])
 
+  
+
+
   const getCommand = () => {
     const splittedCommand = allCommands.commands[commandIndex].split(" ");
     var args = splittedCommand.slice(1,splittedCommand.length)
@@ -47,8 +50,19 @@ const App = () => {
       
 
   const doCommandAndUpdateTape = async (futureCommandIdx) => {
+
       const currentCommand = getCommand()
       const instruction = currentCommand.instruction
+      console.log('future cmd idx:',futureCommandIdx)
+      if(futureCommandIdx >= allCommands.commands.length || futureCommandIdx < 0){
+        alert(`Command ${futureCommandIdx} doens't exist. On step ${commandIndex+1}, command: ${allCommands.commands[commandIndex]}`)
+        return
+      }
+
+      if(instruction === '!'){
+        alert(`Programm finished on !. On step ${commandIndex+1}, command: ${allCommands.commands[commandIndex]}`)
+        return
+      }
 
       console.log(`command index: ${commandIndex}, cursor:${cursor}`);
       console.log(`getCommand:`,getCommand());
@@ -56,14 +70,27 @@ const App = () => {
       if (instruction === 'V') {
         V(tape, cursor, setTape);
       } else if (instruction === '>') {
+        if(cursor+1 > tape.length){
+          alert(`Cursor out of tape's bound!  On step ${commandIndex+1}, command: ${allCommands.commands[commandIndex]}`)
+          return
+        }
         setCursor(prevCursor => prevCursor + 1);
       } else if (instruction === 'X') {
         X(tape, cursor, setTape);
       } else if (instruction === '<') {
+        if(cursor-1 < 0){
+          alert(`Cursor out of tape's bound!  On step ${commandIndex+1}, command: ${allCommands.commands[commandIndex]}`)
+          return
+        }
         setCursor(prevCursor => prevCursor - 1);
       } else if (instruction === '?') {
-        console.log(currentCommand);
+        console.log('? instruction');
       }
+      else if (instruction === '!'){
+        setCursor(-1)
+      }
+
+      
 
       setCommandIndex(futureCommandIdx);
   };
@@ -113,24 +140,25 @@ const App = () => {
       <h1>Post machine</h1>
       <div style={{ display: "flex" }}>
         {tape.slice(0,Math.min(tape.length,30)).map((cell, index) => (
-          <CustomCell key={index} value={{cell:cell,cursor:index===cursor,index:index}} index={index} onClickHandle={(index)=>{changeCellValue(index)}} />
+          <CustomCell key={index} value={{cell:cell,cursor:index===cursor,index:index}} index={index} onContextHandle={(index)=>{setCursor(index)}} onClickHandle={(index)=>{changeCellValue(index)}} />
         ))}
       </div>
       <Runner codeHandle={(env) => {generateEnvCode(env)}} commandIndex={commandIndex}/>
       {allCommands.commands && (
-        <>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <Button variant="outline-warning" style={{ margin: "5px" }} onClick={() => { nextStep(); }}>
             step
           </Button>
-          <Button variant="outline-danger" style={{ margin: "5px" }} onClick={() => { setCursor(0);setCommandIndex(0) }}>
+          <Button variant="outline-danger" style={{ margin: "5px" }} onClick={() => { setCursor(0); setCommandIndex(0) }}>
             reset
           </Button>
-        </>
-      )}
-      {commandIndex && (
-        <>
-        <div>{commandIndex+1}</div>
-        </>
+          <div style={{
+            fontSize: '30px',
+            marginLeft: '15px',  // Добавляем небольшой отступ от кнопок
+          }}>
+            {commandIndex + 1}
+          </div>
+        </div>
       )}
       </>
   );
