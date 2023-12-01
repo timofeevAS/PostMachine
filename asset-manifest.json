@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/PostMachine/static/css/main.241951ba.css",
+    "main.js": "/PostMachine/static/js/main.8111647d.js",
+    "index.html": "/PostMachine/index.html",
+    "main.241951ba.css.map": "/PostMachine/static/css/main.241951ba.css.map",
+    "main.8111647d.js.map": "/PostMachine/static/js/main.8111647d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.241951ba.css",
+    "static/js/main.8111647d.js"
+  ]
+}
