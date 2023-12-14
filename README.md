@@ -1,4 +1,4 @@
-# ReactJS Turing Machine Simulator
+# ReactJS Post Machine Simulator 
 
 This project is a ReactJS application that implements a Turing Machine. With this simulator, you can write and execute your own Turing Machine code step by step.
 
