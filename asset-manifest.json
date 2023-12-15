@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/PostMachine/static/css/main.241951ba.css",
-    "main.js": "/PostMachine/static/js/main.8111647d.js",
-    "index.html": "/PostMachine/index.html",
-    "main.241951ba.css.map": "/PostMachine/static/css/main.241951ba.css.map",
-    "main.8111647d.js.map": "/PostMachine/static/js/main.8111647d.js.map"
+    "main.css": "/post-machine-simulator/static/css/main.241951ba.css",
+    "main.js": "/post-machine-simulator/static/js/main.b95c44b1.js",
+    "index.html": "/post-machine-simulator/index.html",
+    "main.241951ba.css.map": "/post-machine-simulator/static/css/main.241951ba.css.map",
+    "main.b95c44b1.js.map": "/post-machine-simulator/static/js/main.b95c44b1.js.map"
   },
   "entrypoints": [
     "static/css/main.241951ba.css",
-    "static/js/main.8111647d.js"
+    "static/js/main.b95c44b1.js"
   ]
 }
